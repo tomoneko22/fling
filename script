@@ -4,14 +4,28 @@ local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Bli
 -- ウィンドウを作成
 local Window = OrionLib:MakeWindow({Name = "CAT HUBv2", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
--- タブを作成
+-- tab
+local m_Tab = Window:MakeTab({
+    Name = "main",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
 local t_Tab = Window:MakeTab({
     Name = "teleport",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
+--main tab
+m_Tab:AddButton({
+	Name = "anti void",
+	Callback = function()
+      		loadstring(game:HttpGet(("https://raw.githubusercontent.com/tomoneko22/lvoid/main/script"))()
 
--- ボタンを追加
+  	end    
+})
+
+-- teleport tab
 t_Tab:AddButton({
     Name = "Home1",
     Callback = function()
@@ -53,99 +67,3 @@ t_Tab:AddButton({
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(138.469,346,352.83)
     end
 })
-
-	-- Grabs Scripts
-	
-	W.ChildAdded:Connect(function(model)
-		if model.Name == "GrabParts" then
-			local part_to_impulse = model["GrabPart"]["WeldConstraint"].Part1
-			
-			if part_to_impulse then
-				-- PC Super Fling Support
-					task.spawn(function()
-						print("Part found!")
-			
-						local inputObj
-						local velocityObj = Instance.new("BodyVelocity", part_to_impulse)
-			
-						model:GetPropertyChangedSignal("Parent"):Connect(function()
-							if not model.Parent then
-								if uis:GetLastInputType() == Enum.UserInputType.MouseButton2 and _G.SuperStrength then
-									if not verifyDev(part_to_impulse.Parent) then
-										print("Launched!")
-										velocityObj.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
-										velocityObj.Velocity = workspace.CurrentCamera.CFrame.lookVector * _G.Strength
-										DB:AddItem(velocityObj, 1)
-									else
-										velocityObj:Destroy()
-									end
-							elseif uis:GetLastInputType() == Enum.UserInputType.MouseButton1 then
-								velocityObj:Destroy()
-								print("Cancel Launch!")
-							else
-								velocityObj:Destroy()
-								print("No two keys pressed!")
-							end
-						end
-					end)
-				end)
-
-_G.AntiGrab = nil
--- AntiGrabトグルを追加
-t_Tab:AddToggle({
-		Name = "Anti-Grab",
-		Default = false,
-		Callback = function(Value)
-			_G.AntiGrab = Value
-		end    
-	})
-
-	local BeingHeld = Player:WaitForChild("IsHeld")
-	local PlayerScripts = Player:WaitForChild("PlayerScripts")
-	local PlayerWhoIsHolding = nil
-
-	-- Remotes
-	local StruggleEvent = CE:WaitForChild("Struggle")
-
-	-- Anti-Explosion
-	workspace.DescendantAdded:Connect(function(v)
-		if v:IsA("Explosion") and _G.AntiExplosion then
-			v.BlastPressure = 0
-		end
-	end)
-
-
-	BeingHeld.Changed:Connect(function(C)
-		if _G.AutoAttacker then
-			for i, players in pairs(PS:GetPlayers()) do
-				if players.Name == PlayerWhoIsHolding then
-					if players.Character["Head"]:FindFirstChild("PartOwner") then
-						if not players.Character["Head"]:FindFirstChild("PartOwner").Value == PlayerWhoIsHolding then
-							SetNetworkOwnership:FireServer(players.Character["HumanoidRootPart"], players.Character["HumanoidRootPart"].CFrame)
-						end
-					end
-				end
-			end
-		end
-
-		if C == true and not verifyDev(PS:FindFirstChild(PlayerWhoIsHolding)) then
-			local char = Player.Character or Player.CharacterAdded:Wait()
-			local hrp = char:WaitForChild("HumanoidRootPart")
-
-			if BeingHeld.Value then
-				local Event;
-				
-				Event = R.RenderStepped:Connect(function()
-					if BeingHeld.Value and _G.AntiGrab then
-						hrp.Velocity = Vector3.new()
-						hrp.Anchored = true
-						StruggleEvent:FireServer(Player)
-					else
-						hrp.Velocity = Vector3.new()
-						hrp.Anchored = false
-						Event:Disconnect()
-					end
-				end)
-			end
-		end
-	end)
