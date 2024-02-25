@@ -16,12 +16,11 @@ local t_Tab = Window:MakeTab({
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
---main tab
-m_Tab:AddButton({
-	Name = "anti void",
-	Callback = function()
-      		loadstring(game:HttpGet(("https://raw.githubusercontent.com/tomoneko22/lvoid/main/script"))()
 
+m_Tab:AddButton({
+	Name = "lvoid",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/tomoneko22/lvoid/main/script"))()
   	end    
 })
 
