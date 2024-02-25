@@ -1,0 +1,51 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/BlizTBr/scripts/main/Orion%20X')))()
+
+local Window = OrionLib:MakeWindow({Name = "CAT HUB", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+local Tab = Window:MakeTab({
+    Name = "teleport",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+Tab:AddButton({
+    Name = "Home1",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-500.258, -5, -155.762)
+    end
+})
+
+Tab:AddButton({
+    Name = "Home2",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-552.647,-5,80.451)
+    end
+})
+
+Tab:AddButton({
+    Name = "Home3",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(278.434,-5,460.492)
+    end
+})
+
+Tab:AddButton({
+    Name = "Home4",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(505.87,83,-355.719)
+    end
+})
+
+Tab:AddButton({
+    Name = "Home5",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(554.032,123,-93.112)
+    end
+})
+
+Tab:AddButton({
+    Name = "空島",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(138.469,346,352.83)
+    end
+})
