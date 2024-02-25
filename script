@@ -1,13 +1,17 @@
+-- Orion Xライブラリをロード
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/BlizTBr/scripts/main/Orion%20X')))()
 
+-- ウィンドウを作成
 local Window = OrionLib:MakeWindow({Name = "CAT HUB", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
+-- タブを作成
 local t_Tab = Window:MakeTab({
     Name = "teleport",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
 
+-- ボタンを追加
 t_Tab:AddButton({
     Name = "Home1",
     Callback = function()
@@ -50,36 +54,42 @@ t_Tab:AddButton({
     end
 })
 
-local AntiGrabToggle = false
-local Event;
-
+-- AntiGrabトグルを追加
 t_Tab:AddToggle({
-    Name = "Anti-Grab",
-    Callback = function(val)
-        AntiGrabToggle = val
-        local BeingHeld = game.Players.LocalPlayer.Character.HumanoidRootPart.BeingHeld
-        local Player = game.Players.LocalPlayer
-        local R = game:GetService("RunService")
-        local StruggleEvent = game.ReplicatedStorage.StruggleEvent
-
-        if AntiGrabToggle then
-            Event = R.RenderStepped:Connect(function()
-                if BeingHeld.Value then
-                    Player.Character.HumanoidRootPart.Velocity = Vector3.new()
-                    Player.Character.HumanoidRootPart.Anchored = true
-                    StruggleEvent:FireServer(Player)
-                else
-                    Player.Character.HumanoidRootPart.Velocity = Vector3.new()
-                    Player.Character.HumanoidRootPart.Anchored = false
-                end
-            end)
-        else
-            if Event then
-                Event:Disconnect()
-                Event = nil
-                Player.Character.HumanoidRootPart.Velocity = Vector3.new()
-                Player.Character.HumanoidRootPart.Anchored = false
-            end
-        end
-    end
+	Name = "AntiGrab",
+	Default = false,
+	Callback = function(Value)
+		_G.AntiGrab = Value
+	end    
 })
+
+-- BeingHeldの値が変更されたときに実行される関数を定義
+BeingHeld.Changed:Connect(function(C)
+		if _G.AutoAttacker then
+			-- 他のプレイヤーに掴まれたときの処理（省略）
+		end
+
+		-- Cがtrueで、PlayerWhoIsHoldingが開発者でない場合
+		if C == true and not verifyDev(PS:FindFirstChild(PlayerWhoIsHolding)) then
+			local char = Player.Character or Player.CharacterAdded:Wait()
+			local hrp = char:WaitForChild("HumanoidRootPart")
+
+			-- BeingHeld.Valueがtrueの場合
+			if BeingHeld.Value then
+				local Event;
+				
+				Event = R.RenderStepped:Connect(function()
+					-- BeingHeld.Valueと_G.AntiGrabがtrueの場合
+					if BeingHeld.Value and _G.AntiGrab then
+						hrp.Velocity = Vector3.new()
+						hrp.Anchored = true
+						StruggleEvent:FireServer(Player)
+					else
+						hrp.Velocity = Vector3.new()
+						hrp.Anchored = false
+						Event:Disconnect()
+					end
+				end)
+			end
+		end
+	end)
