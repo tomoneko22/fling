@@ -2,7 +2,7 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/BlizTBr/scripts/main/Orion%20X')))()
 
 -- ウィンドウを作成
-local Window = OrionLib:MakeWindow({Name = "CAT HUB", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+local Window = OrionLib:MakeWindow({Name = "CAT HUB v1", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
 -- タブを作成
 local t_Tab = Window:MakeTab({
@@ -67,6 +67,17 @@ t_Tab:AddToggle({
 	local BeingHeld = Player:WaitForChild("IsHeld")
 	local PlayerScripts = Player:WaitForChild("PlayerScripts")
 	local PlayerWhoIsHolding = nil
+
+	-- Remotes
+	local StruggleEvent = CE:WaitForChild("Struggle")
+
+	-- Anti-Explosion
+	workspace.DescendantAdded:Connect(function(v)
+		if v:IsA("Explosion") and _G.AntiExplosion then
+			v.BlastPressure = 0
+		end
+	end)
+
 
 	BeingHeld.Changed:Connect(function(C)
 		if _G.AutoAttacker then
