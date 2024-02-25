@@ -65,7 +65,7 @@ t_Tab:AddToggle({
 
 -- BeingHeldの値が変更されたときに実行される関数を定義
 BeingHeld.Changed:Connect(function(C)
-		if _G.AutoAttacker then
+		if _G.AutoAttacker and not _G.AntiGrab then
 			-- 他のプレイヤーに掴まれたときの処理（省略）
 		end
 
