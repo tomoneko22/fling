@@ -54,15 +54,15 @@ t_Tab:AddButton({
     end
 })
 
+_G.AntiGrab = nil
 -- AntiGrabトグルを追加
 t_Tab:AddToggle({
-	Name = "AntiGrab",
-	Default = false,
-	Callback = function(Value)
-		_G.AntiGrab = Value
-	end    
-})
-
+		Name = "Anti-Grab",
+		Default = false,
+		Callback = function(Value)
+			_G.AntiGrab = Value
+		end    
+	})
 
 	BeingHeld.Changed:Connect(function(C)
 		if _G.AutoAttacker then
