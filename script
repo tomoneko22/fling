@@ -64,6 +64,10 @@ t_Tab:AddToggle({
 		end    
 	})
 
+	local BeingHeld = Player:WaitForChild("IsHeld")
+	local PlayerScripts = Player:WaitForChild("PlayerScripts")
+	local PlayerWhoIsHolding = nil
+
 	BeingHeld.Changed:Connect(function(C)
 		if _G.AutoAttacker then
 			for i, players in pairs(PS:GetPlayers()) do
