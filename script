@@ -51,28 +51,35 @@ t_Tab:AddButton({
 })
 
 local AntiGrabToggle = false
+local Event;
 
 t_Tab:AddToggle({
     Name = "Anti-Grab",
-    Callback = function(Value)
-        AntiGrabToggle = Value
+    Callback = function(val)
+        AntiGrabToggle = val
         local BeingHeld = game.Players.LocalPlayer.Character.HumanoidRootPart.BeingHeld
         local Player = game.Players.LocalPlayer
         local R = game:GetService("RunService")
         local StruggleEvent = game.ReplicatedStorage.StruggleEvent
 
-        local Event;
-        Event = R.RenderStepped:Connect(function()
-            if BeingHeld.Value and AntiGrabToggle then
-                Player.Character.HumanoidRootPart.Velocity = Vector3.new()
-                Player.Character.HumanoidRootPart.Anchored = true
-                StruggleEvent:FireServer(Player)
-            else
+        if AntiGrabToggle then
+            Event = R.RenderStepped:Connect(function()
+                if BeingHeld.Value then
+                    Player.Character.HumanoidRootPart.Velocity = Vector3.new()
+                    Player.Character.HumanoidRootPart.Anchored = true
+                    StruggleEvent:FireServer(Player)
+                else
+                    Player.Character.HumanoidRootPart.Velocity = Vector3.new()
+                    Player.Character.HumanoidRootPart.Anchored = false
+                end
+            end)
+        else
+            if Event then
+                Event:Disconnect()
+                Event = nil
                 Player.Character.HumanoidRootPart.Velocity = Vector3.new()
                 Player.Character.HumanoidRootPart.Anchored = false
-                Event:Disconnect()
             end
-        end)
+        end
     end
 })
-
