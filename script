@@ -24,6 +24,8 @@ m_Tab:AddButton({
   	end    
 })
 
+local sethidden = true -- ここでsethiddenを初期化します
+
 m_Tab:AddToggle({
 	Name = "freeze",
 	Default = false,
@@ -105,8 +107,8 @@ m_Tab:AddToggle({
 		end
 	end    
 })
-
 -- teleport tab
+
 t_Tab:AddButton({
     Name = "Home1",
     Callback = function()
