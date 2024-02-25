@@ -54,8 +54,8 @@ local AntiGrabToggle = false
 
 t_Tab:AddToggle({
     Name = "Anti-Grab",
-    Callback = function(val)
-        AntiGrabToggle = val
+    Callback = function(Value)
+        AntiGrabToggle = Value
         local BeingHeld = game.Players.LocalPlayer.Character.HumanoidRootPart.BeingHeld
         local Player = game.Players.LocalPlayer
         local R = game:GetService("RunService")
