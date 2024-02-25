@@ -8,7 +8,7 @@ local Tab = Window:MakeTab({
     PremiumOnly = false
 })
 
-teleportTab:AddButton({
+teleport Tab:AddButton({
     Name = "Home1",
     Callback = function()
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-500.258, -5, -155.762)
