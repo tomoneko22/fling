@@ -2,7 +2,7 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/BlizTBr/scripts/main/Orion%20X')))()
 
 -- ウィンドウを作成
-local Window = OrionLib:MakeWindow({Name = "CAT HUB v1", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+local Window = OrionLib:MakeWindow({Name = "CAT HUBv2", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
 -- タブを作成
 local t_Tab = Window:MakeTab({
@@ -53,6 +53,42 @@ t_Tab:AddButton({
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(138.469,346,352.83)
     end
 })
+
+	-- Grabs Scripts
+	
+	W.ChildAdded:Connect(function(model)
+		if model.Name == "GrabParts" then
+			local part_to_impulse = model["GrabPart"]["WeldConstraint"].Part1
+			
+			if part_to_impulse then
+				-- PC Super Fling Support
+					task.spawn(function()
+						print("Part found!")
+			
+						local inputObj
+						local velocityObj = Instance.new("BodyVelocity", part_to_impulse)
+			
+						model:GetPropertyChangedSignal("Parent"):Connect(function()
+							if not model.Parent then
+								if uis:GetLastInputType() == Enum.UserInputType.MouseButton2 and _G.SuperStrength then
+									if not verifyDev(part_to_impulse.Parent) then
+										print("Launched!")
+										velocityObj.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+										velocityObj.Velocity = workspace.CurrentCamera.CFrame.lookVector * _G.Strength
+										DB:AddItem(velocityObj, 1)
+									else
+										velocityObj:Destroy()
+									end
+							elseif uis:GetLastInputType() == Enum.UserInputType.MouseButton1 then
+								velocityObj:Destroy()
+								print("Cancel Launch!")
+							else
+								velocityObj:Destroy()
+								print("No two keys pressed!")
+							end
+						end
+					end)
+				end)
 
 _G.AntiGrab = nil
 -- AntiGrabトグルを追加
