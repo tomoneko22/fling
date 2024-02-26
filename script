@@ -96,6 +96,8 @@ p_Tab:AddButton({
     end
 })
 
+p_Tab:AddLabel("FOV")
+
 local fovValue = 0
 
 p_Tab:AddTextbox({
