@@ -1,8 +1,10 @@
--- Orion Xライブラリをロード
+local function changeFOV(value)
+    game.Workspace.CurrentCamera.FieldOfView = value
+end
+
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/BlizTBr/scripts/main/Orion%20X')))()
 
--- ウィンドウを作成
-local Window = OrionLib:MakeWindow({Name = "CAT HUBv3", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+local Window = OrionLib:MakeWindow({Name = "CAT HUB", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
 -- tab
 local m_Tab = Window:MakeTab({
@@ -17,12 +19,28 @@ local t_Tab = Window:MakeTab({
     PremiumOnly = false
 })
 
+local p_Tab = Window:MakeTab({
+    Name = "player",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+--main tab
+
 m_Tab:AddButton({
 	Name = "lvoid",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/tomoneko22/lvoid/main/script"))()
   	end    
 })
+
+m_Tab:AddToggle({
+	Name = "freeze未実装",
+	Default = false,
+	Callback = function(Value)
+	end
+})
+
+
 
 -- teleport tab
 
@@ -66,4 +84,34 @@ t_Tab:AddButton({
     Callback = function()
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(138.469,346,352.83)
     end
+})
+
+-- player tab
+
+p_Tab:AddButton({
+    Name = "三人称",
+    Callback = function()
+        game.Players.LocalPlayer.CameraMaxZoomDistance = 10
+        game.Players.LocalPlayer.CameraMode = "Classic"
+    end
+})
+
+local fovValue = 0
+
+p_Tab:AddTextbox({
+    Name = "FOV",
+    Default = "",
+    TextDisappear = false,
+    Callback = function(Value)
+        fovValue = tonumber(Value)
+    end      
+})
+
+p_Tab:AddButton({
+    Name = "FOV決定",
+    Callback = function()
+        if fovValue then
+            changeFOV(fovValue)
+        end
+    end    
 })
