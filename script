@@ -8,7 +8,7 @@ local Window = OrionLib:MakeWindow({Name = "CAT HUB", HidePremium = false, SaveC
 
 -- tab
 local m_Tab = Window:MakeTab({
-    Name = "main",
+    Name = "maina",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
