@@ -34,7 +34,7 @@ m_Tab:AddButton({
 })
 
 m_Tab:AddToggle({
-	Name = "freeze未実装",
+	Name = "freeze(未実装)",
 	Default = false,
 	Callback = function(Value)
 	end
@@ -96,7 +96,7 @@ p_Tab:AddButton({
     end
 })
 
-p_Tab:AddLabel("----------FOV----------")
+p_Tab:AddLabel("FOV--------------------")
 
 local fovValue = 0
 
