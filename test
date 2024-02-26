@@ -1,6 +1,7 @@
 if game.PlaceId == 6961824067 and not getgenv().d83jdnmas43d34d4dh43d then
 	getgenv().d83jdnmas43d34d4dh43d = true
-	local OrionLib = loadstring(game:HttpGet((''https://raw.githubusercontent.com/thanhdat4461/OrionMoblie/main/source')))()
+	local keySystem = loadstring(game:HttpGet(('https://pastebin.com/raw/S8xckEgu')))()
+	local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/thanhdat4461/OrionMoblie/main/source')))()
 
 	-- Services
 	local PS = game:GetService("Players")
