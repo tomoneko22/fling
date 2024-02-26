@@ -2,7 +2,7 @@ local function changeFOV(value)
     game.Workspace.CurrentCamera.FieldOfView = value
 end
 
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/BlizTBr/scripts/main/Orion%20X')))()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/tomoneko22/orion/main/script')))()
 
 local Window = OrionLib:MakeWindow({Name = "CAT HUB", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
